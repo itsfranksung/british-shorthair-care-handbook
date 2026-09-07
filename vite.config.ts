@@ -10,6 +10,7 @@ const { d1, r2 } = hostingConfig;
 
 // macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
+const deploymentBasePath = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/$/, "");
 
 const localBindingConfig = {
   main: "./worker/index.ts",
@@ -44,6 +45,10 @@ export default defineConfig(async () => {
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
   return {
+    // Vite owns the generated CSS/JS URLs. GitHub Pages serves this project
+    // below the repository name, so its bundle URLs need the same prefix as
+    // the public images handled by NEXT_PUBLIC_BASE_PATH.
+    base: deploymentBasePath ? `${deploymentBasePath}/` : "/",
     server: {
       host: "0.0.0.0",
       allowedHosts: ["terminal.local"],

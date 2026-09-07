@@ -85,7 +85,7 @@ function StoryPage({ index, checked, onToggle, firstSigned, secondSigned, onSign
       <div className="paper-tape tape-top" aria-hidden="true" />
       <p className="formal-label">我住進來以後的第一本教學書</p>
       <h2 className="opening-title">英國短毛貓<br />養育教學書</h2>
-      <div className="portrait-frame"><img src={asset("assets/our-british-shorthair-portrait.webp")} alt="你們最後養的英國短毛貓照片" /></div>
+      <div className="portrait-frame cartoon-portrait"><img src={asset("assets/our-british-shorthair-guide.webp")} alt="你們的英國短毛貓卡通角色" /></div>
       <p className="opening-copy">我已經是你們的家人了。<br />接下來，讓我教你們把每一天照顧好。</p>
       <div className="tiny-seal"><PawPrint size={18} /> 每天照做，慢慢熟練</div>
     </>}
@@ -296,7 +296,7 @@ export default function HomePage() {
       <div className={`closed-book ${stage === "opening" ? "is-opening" : ""}`}>
         <div className="book-shadow" aria-hidden="true" /><div className="inside-paper" aria-hidden="true"><PawPrint /></div>
         <div className="front-cover"><div className="cover-tape" aria-hidden="true" /><p>我們家的共同養育文件</p><h1>英國短毛貓<br />養育教學書</h1>
-          <div className="cover-photo"><img src={asset("assets/our-british-shorthair-cover.webp")} alt="你們最後養的英國短毛貓封面照片" /></div>
+          <div className="cover-photo cartoon-cover"><img src={asset("assets/our-british-shorthair-guide.webp")} alt="你們的英國短毛貓卡通角色" /></div>
           <span>你們 × 已經住進家的我</span><div className="cover-stamp"><PawPrint size={34} /><b>接回家後必讀</b></div>
         </div>
       </div>

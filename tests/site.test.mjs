@@ -16,12 +16,18 @@ test("exports the British Shorthair teaching book landing screen", async () => {
   assert.doesNotMatch(html, /Starter Project|codex-preview/);
 });
 
-test("ships the real-cat and illustrated guide assets", async () => {
-  await Promise.all([
-    "our-british-shorthair-cover.webp",
-    "our-british-shorthair-portrait.webp",
-    "our-british-shorthair-guide.webp",
-  ].map((name) => access(new URL(`dist/client/assets/${name}`, root))));
+test("ships only the illustrated cat used throughout the book", async () => {
+  await access(new URL("dist/client/assets/our-british-shorthair-guide.webp", root));
+
+  const source = await readFile(new URL("app/page.tsx", root), "utf8");
+  assert.doesNotMatch(source, /our-british-shorthair-(?:cover|portrait)\.webp/);
+  assert.match(source, /alt="你們的英國短毛貓卡通角色"/);
+});
+
+test("prefixes generated bundles for a GitHub Pages repository subpath", async () => {
+  const vite = await readFile(new URL("vite.config.ts", root), "utf8");
+
+  assert.match(vite, /base: deploymentBasePath \? `\$\{deploymentBasePath\}\//);
 });
 
 test("includes motion accessibility and handwritten title styling", async () => {

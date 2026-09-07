@@ -273,6 +273,16 @@ label:has(button:focus-visible) {
   object-position: 50% 39%;
 }
 
+.cartoon-cover {
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255,255,255,.92), rgba(248,232,199,.72) 63%, rgba(205,170,117,.3));
+}
+
+.cartoon-cover img {
+  object-position: 50% 21%;
+  transform: scale(1.08);
+}
+
 .front-cover > span {
   margin-top: 0.85rem;
   font-size: clamp(0.62rem, 0.8vw, 0.76rem);
@@ -786,6 +796,17 @@ label:has(button:focus-visible) {
   height: 100%;
   object-fit: cover;
   object-position: 50% 34%;
+}
+
+.cartoon-portrait {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255,255,255,.98), rgba(249,235,208,.78) 65%, rgba(209,174,121,.26));
+}
+
+.cartoon-portrait img {
+  object-position: 50% 22%;
+  transform: scale(1.07);
 }
 
 .tape-top {
