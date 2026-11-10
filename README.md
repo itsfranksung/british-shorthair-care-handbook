@@ -1,28 +1,43 @@
-# 英國短毛貓養育教學書
+# 貓咪行為百科 Discord 問答機器人
 
-以你們實際養的英國短毛貓為主角，將日常照顧整理成能真正翻動的互動教學書。
+在 Discord 跟你家的英短聊天：機器人以**貓咪本人的口吻**回答（例如問「你為什麼一直咬我？」），但內容**只依「貓咪行為百科」課程教材**並標註單元出處；教材沒提到的會直接說沒有，不會亂掰。
 
-## 內容
+- 教材有著作權：PDF 放在 `materials/`，已被 `.gitignore` 排除，**永遠不會上傳到 git**。
+- 回答由本機的 `claude` CLI 產生，使用你已登入的 Claude 訂閱額度（不需要 API key）。
+- 機器人跑在這台電腦上；電腦關機或關掉程式，機器人就會離線。
 
-- 闔上的書與自家英短動畫化角色入場
-- 使用者自行點擊、滑動或用方向鍵翻頁
-- 定量餵食、體重、飲水砂盆、陪玩、梳毛與身體語言
-- 家電家具防護、每月預算、HCM／PKD 與就醫警訊
-- 可勾選的日常清單與本機進度保存
-- 兩枚可再次點擊取消的互動爪印
-- 手機與桌面版響應式閱讀
+## 需要的東西
 
-## 本機執行
+- Node.js 22 以上
+- 已登入訂閱的 Claude Code（終端機輸入 `claude` 能正常使用）
+- `pdftotext`（Git for Windows 已內建）
+- 教材 PDF 放在 `materials/`
+
+## 一次性設定：建立 Discord 機器人
+
+1. 到 <https://discord.com/developers/applications> → **New Application**。
+2. 左側 **Bot** → **Reset Token** → 複製 token。
+3. 同一頁往下開啟 **Message Content Intent**，然後儲存。
+4. 左側 **OAuth2** → **URL Generator**：Scopes 勾 `bot`，Bot Permissions 勾 `Send Messages`、`Read Message History`，用產生的網址把機器人邀進你的伺服器。
+5. 把 `.env.example` 複製成 `.env`，填入 `DISCORD_TOKEN`。建議也在 `ALLOWED_USER_IDS` 填入你自己的 Discord 使用者 ID，避免別人用掉你的額度（Discord 設定開啟「開發者模式」後，對自己按右鍵 → 複製使用者 ID）。
+
+## 使用
 
 ```bash
-npm ci
-npm run dev
+npm install
+npm start
 ```
 
-## 建置
+- 伺服器頻道：`@機器人 貓咪一直半夜叫怎麼辦？`
+- 也可以直接私訊機器人。
+
+不經過 Discord、直接在終端機測試：
 
 ```bash
-npm run build
+npm run ask -- 貓咪飛機耳是什麼意思？
 ```
 
-推送到 `main` 後，GitHub Actions 會自動部署至 GitHub Pages。
+## 限制
+
+- 每個問題獨立回答，不記得前一句對話。
+- 教材文字是從 PDF 抽取的；只存在於圖片或影片裡的內容，機器人看不到。
