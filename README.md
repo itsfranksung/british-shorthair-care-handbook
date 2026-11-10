@@ -37,6 +37,39 @@ npm start
 npm run ask -- 貓咪飛機耳是什麼意思？
 ```
 
+## 部署到 Mac（開機自動執行）
+
+> 同一個 Discord token 只能跑一隻機器人：搬到 Mac 前先把 Windows 上的 `npm start` 關掉，不然每題會回答兩次。
+
+1. **安裝工具**（終端機）：
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   brew install node poppler
+   curl -fsSL https://claude.ai/install.sh | bash
+   ```
+   `poppler` 提供 `pdftotext`。裝完**重開終端機**，執行一次 `claude`，用你的 Claude 訂閱帳號登入後離開。
+2. **取得程式**：
+   ```bash
+   git clone https://github.com/itsfranksung/british-shorthair-care-handbook.git ~/cat-bot
+   ```
+3. **手動搬教材和設定**（不在 GitHub 上）：用 AirDrop 或隨身碟，把 Windows 上的 `materials/` 資料夾和 `.env` 複製到 `~/cat-bot/`。
+4. **安裝成自動啟動**：
+   ```bash
+   cd ~/cat-bot && bash install-mac.sh
+   ```
+   之後每次登入 Mac 都會自動執行，當掉也會自己重啟。紀錄在 `~/cat-bot/bot.log`。
+5. **Mac 系統設定**：
+   - 「使用者與群組」→ 開啟**自動登入**：開機後要先登入，機器人才會跑起來。有開 FileVault 的話無法自動登入，重開機後要有人手動登入一次。
+   - 「能源」→ 開啟**防止自動進入睡眠**和**停電後自動開機**。
+
+常用指令：
+
+```bash
+cd ~/cat-bot && git pull && bash install-mac.sh   # 更新程式後重啟
+tail -f ~/cat-bot/bot.log                          # 看紀錄
+launchctl bootout gui/$(id -u)/com.tom.catbot      # 停止並取消自動啟動
+```
+
 ## 限制
 
 - 每個問題獨立回答，不記得前一句對話。
